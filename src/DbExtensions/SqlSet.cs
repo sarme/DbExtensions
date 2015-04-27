@@ -364,6 +364,7 @@ namespace DbExtensions {
             var innerQuery = new SqlBuilder()
                .SELECT(String.Concat("ROW_NUMBER() OVER (ORDER BY ", orderByBuffer.Format, ") AS ", rowNumberAlias), orderByBuffer.Args)
                .SELECT(innerQueryAlias + ".*")
+               .SELECT("COUNT(*) OVER () as Total_Rows")
                .FROM(GetDefiningQuery(clone: false, ignoreBuffer: true), innerQueryAlias);
 
             if (hasWhere) {
